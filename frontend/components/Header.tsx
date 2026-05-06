@@ -33,7 +33,7 @@ export function Header() {
   return (
     <header className="topbar">
       <Link href="/" className="brand">
-        AI Ops Assistant
+        evrakciAI
       </Link>
       <nav className="nav">
         {user?.role === "sales" ? (

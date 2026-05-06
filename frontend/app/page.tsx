@@ -19,7 +19,7 @@ export default async function DashboardPage() {
       <section className="pageHeader">
         <div>
           <p className="eyebrow">Operational workflow</p>
-          <h1>AI Destekli Operasyon Talep Paneli</h1>
+          <h1>evrakciAI Operasyon Talep Paneli</h1>
           <p className="muted">
             Talepleri siniflandir, alanlari cikar, cevap taslagini hazirla ve insan onayina sun.
           </p>

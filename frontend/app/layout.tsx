@@ -4,8 +4,8 @@ import { NavigationStack } from "@/components/NavigationStack";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AI Ops Assistant",
-  description: "AI-assisted operational request processing dashboard",
+  title: "evrakciAI",
+  description: "evrakciAI operational request processing dashboard",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
