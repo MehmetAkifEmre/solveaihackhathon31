@@ -29,6 +29,10 @@ class RequestCreate(BaseModel):
     source: SourceType
 
 
+class RequestDraftUpdate(BaseModel):
+    draft_response: str = Field(..., min_length=10)
+
+
 class RequestRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 

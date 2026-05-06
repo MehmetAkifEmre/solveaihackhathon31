@@ -1,21 +1,22 @@
 import Link from "next/link";
 import { ArrowRight, Clock, Gauge, Inbox, TimerReset } from "lucide-react";
 
-import { getMetrics, getRequests } from "@/lib/api";
+import { RoleGate } from "@/components/RoleGate";
 import { RequestTable } from "@/components/RequestTable";
+import { getMetrics, getRequests } from "@/lib/api";
 
 export default async function DashboardPage() {
   const [metrics, requests] = await Promise.all([getMetrics(), getRequests()]);
   const recent = requests.slice(0, 5);
 
   return (
-    <>
+    <RoleGate allowed={["sales"]} fallbackTitle="Sales / Ops girisi gerekli">
       <section className="pageHeader">
         <div>
           <p className="eyebrow">Operational workflow</p>
           <h1>AI Destekli Operasyon Talep Paneli</h1>
           <p className="muted">
-            Talepleri sınıflandır, alanları çıkar, cevap taslağını hazırla ve insan onayına sun.
+            Talepleri siniflandir, alanlari cikar, cevap taslagini hazirla ve insan onayina sun.
           </p>
         </div>
         <Link href="/requests/new" className="primaryLink">
@@ -38,17 +39,17 @@ export default async function DashboardPage() {
           <div className="statValue">{metrics.average_manual_minutes} dk</div>
         </article>
         <article className="card">
-          <div className="statLabel">AI Sonrası Ortalama</div>
+          <div className="statLabel">AI Sonrasi Ortalama</div>
           <div className="statValue">{metrics.average_automated_minutes} dk</div>
         </article>
       </section>
 
       <section className="savingsBand">
         <div>
-          <h2>Demo tasarruf ölçümü</h2>
+          <h2>Demo tasarruf olcumu</h2>
           <p className="muted">
-            Manuel süreç {metrics.manual_steps} adım / {metrics.manual_minutes} dakika, otomasyon sonrası{" "}
-            {metrics.automated_steps} adım / {metrics.automated_minutes} dakika.
+            Manuel surec {metrics.manual_steps} adim / {metrics.manual_minutes} dakika, otomasyon sonrasi{" "}
+            {metrics.automated_steps} adim / {metrics.automated_minutes} dakika.
           </p>
         </div>
         <div className="actions">
@@ -56,7 +57,7 @@ export default async function DashboardPage() {
             <TimerReset size={16} /> %{metrics.time_reduction_percent} zaman
           </span>
           <span className="badge">
-            <Gauge size={16} /> %{metrics.step_reduction_percent} adım
+            <Gauge size={16} /> %{metrics.step_reduction_percent} adim
           </span>
         </div>
         <div className="savingsValue">%{metrics.time_reduction_percent}</div>
@@ -68,21 +69,21 @@ export default async function DashboardPage() {
           <RequestTable requests={recent} />
         </article>
         <article className="card">
-          <h2>Kritik demo noktaları</h2>
+          <h2>Juriye anlatilacak agent kullanimi</h2>
           <p className="muted">
-            Bu MVP mock AI provider ile çalışır; gerçek API anahtarı olmadan kategori, öncelik,
-            departman, alan çıkarımı ve Türkçe cevap taslağı üretir.
+            Plan Agent mimari ve roadmap'i cikardi. Skills Agent siniflandirma, veri cikarimi,
+            taslak uretimi ve workflow kararlarini optimize etti. Sales / Ops rolu insan onayi katmanini temsil eder.
           </p>
           <div className="grid">
             <span className="badge">
-              <Inbox size={16} /> {metrics.processed_request_count} işlenmiş kayıt
+              <Inbox size={16} /> {metrics.processed_request_count} islenmis kayit
             </span>
             <span className="badge">
-              <Clock size={16} /> %{metrics.time_reduction_percent}+ hedef görünür
+              <Clock size={16} /> %{metrics.time_reduction_percent}+ hedef gorunur
             </span>
           </div>
         </article>
       </section>
-    </>
+    </RoleGate>
   );
 }

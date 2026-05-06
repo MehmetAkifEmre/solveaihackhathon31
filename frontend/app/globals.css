@@ -246,6 +246,44 @@ tr:last-child td {
   white-space: nowrap;
 }
 
+.sessionBadge {
+  align-items: center;
+  background: #eef3f8;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--focus);
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 700;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 12px;
+}
+
+.accessPanel,
+.roleCard,
+.successPanel {
+  align-items: flex-start;
+  display: flex;
+  gap: 14px;
+}
+
+.roleCard {
+  flex-direction: column;
+}
+
+.successPanel {
+  background: #e9f7ef;
+  border: 1px solid #b8dcc8;
+  border-radius: 8px;
+  color: var(--success);
+  padding: 14px;
+}
+
+.successPanel p {
+  margin-bottom: 0;
+}
+
 .status-waiting_approval,
 .status-draft_created,
 .status-extracted,

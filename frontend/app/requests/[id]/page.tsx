@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
+import { RoleGate } from "@/components/RoleGate";
 import { StatusBadge } from "@/components/StatusBadge";
 import { getRequest } from "@/lib/api";
 import { Actions } from "./Actions";
@@ -10,7 +11,7 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
   const request = await getRequest(id);
 
   return (
-    <>
+    <RoleGate allowed={["sales"]} fallbackTitle="Approval detayi icin Sales / Ops girisi gerekli">
       <section className="pageHeader">
         <div>
           <p className="eyebrow">Request detail</p>
@@ -61,10 +62,9 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
 
         <article className="card">
           <h2>AI cevap taslagi</h2>
-          <p className="detailBlock">{request.draft_response ?? "Taslak uretilemedi."}</p>
-          <Actions id={request.id} status={request.status} />
+          <Actions id={request.id} status={request.status} draftResponse={request.draft_response ?? ""} />
         </article>
       </section>
-    </>
+    </RoleGate>
   );
 }
