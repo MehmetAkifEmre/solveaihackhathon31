@@ -108,6 +108,13 @@ export function approveRequest(id: number) {
   return request<OpsRequest>(`/requests/${id}/approve`, { method: "POST" });
 }
 
+export function updateDraftResponse(id: number, draftResponse: string) {
+  return request<OpsRequest>(`/requests/${id}/draft`, {
+    method: "PATCH",
+    body: JSON.stringify({ draft_response: draftResponse }),
+  });
+}
+
 export function rejectRequest(id: number) {
   return request<OpsRequest>(`/requests/${id}/reject`, { method: "POST" });
 }

@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.models.request import Request
-from app.models.schemas import RequestCreate, RequestRead
+from app.models.schemas import RequestCreate, RequestDraftUpdate, RequestRead
 from app.services.workflow_engine import WorkflowEngine
 
 
@@ -28,6 +28,19 @@ def get_request(request_id: int, db: Session = Depends(get_db)) -> Request:
     request = db.get(Request, request_id)
     if not request:
         raise HTTPException(status_code=404, detail="Talep bulunamadı.")
+    return request
+
+
+@router.patch("/{request_id}/draft", response_model=RequestRead)
+def update_draft(request_id: int, payload: RequestDraftUpdate, db: Session = Depends(get_db)) -> Request:
+    request = db.get(Request, request_id)
+    if not request:
+        raise HTTPException(status_code=404, detail="Talep bulunamadi.")
+    if request.status != "waiting_approval":
+        raise HTTPException(status_code=409, detail="Sadece onay bekleyen taslaklar duzenlenebilir.")
+    request.draft_response = payload.draft_response
+    db.commit()
+    db.refresh(request)
     return request
 
 

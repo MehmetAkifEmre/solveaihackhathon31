@@ -61,8 +61,7 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
 
         <article className="card">
           <h2>AI cevap taslagi</h2>
-          <p className="detailBlock">{request.draft_response ?? "Taslak uretilemedi."}</p>
-          <Actions id={request.id} status={request.status} />
+          <Actions id={request.id} status={request.status} draftResponse={request.draft_response ?? ""} />
         </article>
       </section>
     </>
