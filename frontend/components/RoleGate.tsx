@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { LockKeyhole } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
 
 import { DemoUser, getStoredUser, UserRole } from "@/lib/auth";
+import { replaceWithLastUsefulPath } from "@/lib/navigationStack";
 
 export function RoleGate({
   allowed,
@@ -15,11 +17,23 @@ export function RoleGate({
   children: ReactNode;
   fallbackTitle?: string;
 }) {
+  const pathname = usePathname();
+  const router = useRouter();
   const [user, setUser] = useState<DemoUser | null | undefined>(undefined);
 
   useEffect(() => {
     setUser(getStoredUser());
   }, []);
+
+  useEffect(() => {
+    if (user && !allowed.includes(user.role)) {
+      replaceWithLastUsefulPath(router, {
+        currentPath: pathname,
+        fallbackPath: user.role === "customer" ? "/requests/new" : "/",
+        disallowedPaths: ["/login"],
+      });
+    }
+  }, [allowed, pathname, router, user]);
 
   if (user === undefined) {
     return <div className="card muted">Loading session...</div>;
