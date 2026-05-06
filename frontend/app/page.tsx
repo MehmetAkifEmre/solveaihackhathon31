@@ -1,8 +1,13 @@
+// AI Traceability:
+// Skills Agent assisted in structuring this UI component for demo clarity.
+// Human review required before merge.
+
 import Link from "next/link";
-import { ArrowRight, Clock, Gauge, Inbox, TimerReset } from "lucide-react";
+import { ArrowRight, Gauge, TimerReset } from "lucide-react";
 
 import { RoleGate } from "@/components/RoleGate";
 import { RequestTable } from "@/components/RequestTable";
+import { MetricsCharts } from "@/components/MetricsCharts";
 import { getMetrics, getRequests } from "@/lib/api";
 
 export default async function DashboardPage() {
@@ -51,6 +56,10 @@ export default async function DashboardPage() {
             Manuel surec {metrics.manual_steps} adim / {metrics.manual_minutes} dakika, otomasyon sonrasi{" "}
             {metrics.automated_steps} adim / {metrics.automated_minutes} dakika.
           </p>
+          <p className="muted">
+            Bu workflow, manuel süreci 7 adımdan 3 adıma indirerek yaklaşık %57 adım azaltımı ve 10 dakikadan 4
+            dakikaya indirerek %60 zaman tasarrufu sağlar.
+          </p>
         </div>
         <div className="actions">
           <span className="badge">
@@ -63,25 +72,12 @@ export default async function DashboardPage() {
         <div className="savingsValue">%{metrics.time_reduction_percent}</div>
       </section>
 
-      <section className="grid twoCol">
+      <MetricsCharts metrics={metrics} requests={requests} />
+
+      <section className="grid">
         <article className="card">
           <h2>Son talepler</h2>
           <RequestTable requests={recent} />
-        </article>
-        <article className="card">
-          <h2>Juriye anlatilacak agent kullanimi</h2>
-          <p className="muted">
-            Plan Agent mimari ve roadmap'i cikardi. Skills Agent siniflandirma, veri cikarimi,
-            taslak uretimi ve workflow kararlarini optimize etti. Sales / Ops rolu insan onayi katmanini temsil eder.
-          </p>
-          <div className="grid">
-            <span className="badge">
-              <Inbox size={16} /> {metrics.processed_request_count} islenmis kayit
-            </span>
-            <span className="badge">
-              <Clock size={16} /> %{metrics.time_reduction_percent}+ hedef gorunur
-            </span>
-          </div>
         </article>
       </section>
     </RoleGate>

@@ -1,16 +1,22 @@
 :root {
-  --bg: #f6f7f9;
-  --surface: #ffffff;
-  --surface-alt: #eef5f2;
-  --text: #1d252d;
-  --muted: #64707d;
-  --line: #dce2e8;
-  --accent: #176b5b;
-  --accent-strong: #0f5146;
-  --warning: #a15c12;
-  --danger: #a23b3b;
-  --success: #237347;
-  --focus: #2e7db6;
+  --bg: #eaf4ff;
+  --surface: rgba(255, 255, 255, 0.76);
+  --surface-strong: rgba(255, 255, 255, 0.94);
+  --surface-alt: rgba(232, 244, 255, 0.82);
+  --text: #182536;
+  --muted: #5b6b80;
+  --line: rgba(118, 152, 190, 0.24);
+  --accent: #1a73e8;
+  --accent-strong: #1558b0;
+  --gmail-red: #ea4335;
+  --gmail-yellow: #fbbc04;
+  --gmail-green: #34a853;
+  --warning: #a05c00;
+  --danger: #c5221f;
+  --success: #188038;
+  --focus: #1a73e8;
+  --shadow: 0 22px 60px rgba(26, 115, 232, 0.12);
+  --soft-shadow: 0 12px 32px rgba(24, 37, 54, 0.08);
 }
 
 * {
@@ -19,7 +25,10 @@
 
 body {
   margin: 0;
-  background: var(--bg);
+  background:
+    linear-gradient(135deg, rgba(66, 133, 244, 0.16), rgba(255, 255, 255, 0.66) 44%),
+    linear-gradient(180deg, #e7f2ff 0%, #f7fbff 58%, #edf7ff 100%);
+  background-attachment: fixed;
   color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -38,15 +47,20 @@ textarea {
 
 .topbar {
   align-items: center;
-  background: var(--surface);
+  backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.72);
   border-bottom: 1px solid var(--line);
   display: flex;
   justify-content: space-between;
   min-height: 64px;
   padding: 0 28px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .brand {
+  color: var(--accent);
   font-size: 20px;
   font-weight: 700;
 }
@@ -70,6 +84,12 @@ textarea {
   justify-content: center;
   min-height: 40px;
   padding: 0 14px;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
 }
 
 .navLink {
@@ -77,20 +97,23 @@ textarea {
 }
 
 .navLink:hover {
-  background: var(--surface-alt);
+  background: rgba(232, 240, 254, 0.84);
   color: var(--text);
 }
 
 .primaryLink,
 .button {
-  background: var(--accent);
-  border: 1px solid var(--accent);
+  background: linear-gradient(180deg, #4285f4, var(--accent));
+  border: 1px solid rgba(26, 115, 232, 0.9);
+  box-shadow: 0 10px 24px rgba(26, 115, 232, 0.22);
   color: white;
 }
 
 .primaryLink:hover,
 .button:hover {
   background: var(--accent-strong);
+  box-shadow: 0 14px 30px rgba(26, 115, 232, 0.28);
+  transform: translateY(-1px);
 }
 
 .secondaryButton {
@@ -99,9 +122,16 @@ textarea {
   color: var(--text);
 }
 
+.secondaryButton:hover,
+.iconButton:hover {
+  background: rgba(232, 240, 254, 0.9);
+  border-color: rgba(26, 115, 232, 0.32);
+  color: var(--accent);
+}
+
 .dangerButton {
-  background: #fff3f2;
-  border: 1px solid #e8b6b3;
+  background: rgba(252, 232, 230, 0.9);
+  border: 1px solid rgba(234, 67, 53, 0.26);
   color: var(--danger);
 }
 
@@ -171,9 +201,11 @@ h2 {
 }
 
 .card {
+  backdrop-filter: blur(18px);
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 8px;
+  box-shadow: var(--soft-shadow);
   padding: 20px;
 }
 
@@ -183,6 +215,7 @@ h2 {
 }
 
 .statValue {
+  color: var(--accent-strong);
   font-size: 32px;
   font-weight: 800;
   margin-top: 8px;
@@ -190,9 +223,13 @@ h2 {
 
 .savingsBand {
   align-items: center;
-  background: var(--surface-alt);
-  border: 1px solid #cfe0d8;
+  backdrop-filter: blur(18px);
+  background:
+    linear-gradient(135deg, rgba(232, 240, 254, 0.94), rgba(255, 255, 255, 0.74)),
+    var(--surface-alt);
+  border: 1px solid rgba(66, 133, 244, 0.22);
   border-radius: 8px;
+  box-shadow: var(--shadow);
   display: flex;
   gap: 20px;
   justify-content: space-between;
@@ -207,10 +244,12 @@ h2 {
 }
 
 .tableWrap {
+  backdrop-filter: blur(18px);
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 8px;
   overflow: auto;
+  box-shadow: var(--soft-shadow);
 }
 
 table {
@@ -237,18 +276,26 @@ tr:last-child td {
   border-bottom: 0;
 }
 
+tbody tr:hover {
+  background: rgba(232, 240, 254, 0.52);
+}
+
 .badge {
+  align-items: center;
+  background: rgba(232, 240, 254, 0.9);
+  border: 1px solid rgba(26, 115, 232, 0.16);
   border-radius: 999px;
   display: inline-flex;
   font-size: 12px;
   font-weight: 700;
+  gap: 6px;
   padding: 6px 10px;
   white-space: nowrap;
 }
 
 .sessionBadge {
   align-items: center;
-  background: #eef3f8;
+  background: rgba(232, 240, 254, 0.9);
   border: 1px solid var(--line);
   border-radius: 999px;
   color: var(--focus);
@@ -273,8 +320,8 @@ tr:last-child td {
 }
 
 .successPanel {
-  background: #e9f7ef;
-  border: 1px solid #b8dcc8;
+  background: rgba(230, 244, 234, 0.86);
+  border: 1px solid rgba(52, 168, 83, 0.28);
   border-radius: 8px;
   color: var(--success);
   padding: 14px;
@@ -284,27 +331,186 @@ tr:last-child td {
   margin-bottom: 0;
 }
 
+.loginScene {
+  display: grid;
+  gap: 22px;
+}
+
+.loginHero {
+  align-items: stretch;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+}
+
+.loginCopy,
+.loginPreview {
+  backdrop-filter: blur(18px);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 26px;
+}
+
+.loginCopy {
+  display: grid;
+  gap: 16px;
+}
+
+.loginCopy h1 {
+  font-size: 40px;
+  max-width: 720px;
+}
+
+.loginStats {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.loginStats span {
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+}
+
+.loginStats strong {
+  color: var(--accent-strong);
+  font-size: 24px;
+}
+
+.loginPreview {
+  align-content: center;
+  display: grid;
+  gap: 12px;
+}
+
+.mailPreviewTop {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.mailDot {
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+}
+
+.redDot {
+  background: var(--gmail-red);
+}
+
+.yellowDot {
+  background: var(--gmail-yellow);
+}
+
+.greenDot {
+  background: var(--gmail-green);
+}
+
+.mailPreviewRow {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.64);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  padding: 12px;
+}
+
+.strongRow {
+  background: rgba(232, 240, 254, 0.86);
+}
+
+.loginRoleGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.livelyRoleCard {
+  min-height: 280px;
+  overflow: hidden;
+  position: relative;
+}
+
+.livelyRoleCard::before {
+  background: linear-gradient(90deg, var(--accent), #8ab4f8);
+  content: "";
+  height: 4px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.salesRole::before {
+  background: linear-gradient(90deg, var(--gmail-green), var(--accent));
+}
+
+.roleIcon {
+  align-items: center;
+  background: rgba(232, 240, 254, 0.96);
+  border: 1px solid rgba(26, 115, 232, 0.18);
+  border-radius: 8px;
+  color: var(--accent);
+  display: inline-flex;
+  height: 54px;
+  justify-content: center;
+  width: 54px;
+}
+
+.salesRole .roleIcon {
+  background: rgba(230, 244, 234, 0.92);
+  border-color: rgba(52, 168, 83, 0.22);
+  color: var(--success);
+}
+
+.roleSteps {
+  align-items: center;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 13px;
+  font-weight: 700;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.roleSteps span {
+  background: rgba(255, 255, 255, 0.66);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 10px;
+}
+
 .status-waiting_approval,
 .status-draft_created,
 .status-extracted,
 .status-classified {
-  background: #fff7e8;
+  background: rgba(254, 247, 224, 0.92);
   color: var(--warning);
 }
 
 .status-approved {
-  background: #e9f7ef;
+  background: rgba(230, 244, 234, 0.92);
   color: var(--success);
 }
 
 .status-rejected,
 .status-failed {
-  background: #fff0ef;
+  background: rgba(252, 232, 230, 0.92);
   color: var(--danger);
 }
 
 .status-received {
-  background: #eef3f8;
+  background: rgba(232, 240, 254, 0.92);
   color: var(--focus);
 }
 
@@ -325,12 +531,20 @@ tr:last-child td {
 .field input,
 .field select,
 .field textarea {
-  background: white;
+  background: rgba(255, 255, 255, 0.84);
   border: 1px solid var(--line);
   border-radius: 6px;
   color: var(--text);
   min-height: 44px;
   padding: 10px 12px;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: rgba(26, 115, 232, 0.6);
+  box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.12);
+  outline: none;
 }
 
 .field textarea {
@@ -349,7 +563,7 @@ tr:last-child td {
 }
 
 .jsonBlock {
-  background: #17212b;
+  background: #142033;
   border-radius: 8px;
   color: #eef7f2;
   overflow: auto;
@@ -357,11 +571,205 @@ tr:last-child td {
 }
 
 .error {
-  background: #fff0ef;
-  border: 1px solid #e8b6b3;
+  background: rgba(252, 232, 230, 0.92);
+  border: 1px solid rgba(234, 67, 53, 0.26);
   border-radius: 8px;
   color: var(--danger);
   padding: 12px;
+}
+
+.chartGrid {
+  grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
+  margin: 18px 0;
+}
+
+.chartCard {
+  display: grid;
+  gap: 18px;
+  min-height: 330px;
+}
+
+.chartHeading {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+.chartHeading h2,
+.chartHeading p {
+  margin-bottom: 0;
+}
+
+.chartIcon {
+  align-items: center;
+  background: rgba(232, 240, 254, 0.96);
+  border: 1px solid rgba(26, 115, 232, 0.18);
+  border-radius: 8px;
+  color: var(--accent);
+  display: inline-flex;
+  height: 40px;
+  justify-content: center;
+  width: 40px;
+}
+
+.donutLayout {
+  align-items: center;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 190px minmax(0, 1fr);
+}
+
+.donutChart {
+  align-items: center;
+  aspect-ratio: 1;
+  border: 1px solid rgba(26, 115, 232, 0.12);
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 0 18px rgba(255, 255, 255, 0.36),
+    0 18px 34px rgba(26, 115, 232, 0.16);
+  display: grid;
+  justify-items: center;
+  position: relative;
+  width: 190px;
+}
+
+.donutChart::after {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  content: "";
+  height: 112px;
+  position: absolute;
+  width: 112px;
+}
+
+.donutCenter {
+  display: grid;
+  gap: 2px;
+  justify-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.donutCenter strong {
+  color: var(--accent-strong);
+  font-size: 30px;
+  line-height: 1;
+}
+
+.donutCenter span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.legendList {
+  display: grid;
+  gap: 10px;
+}
+
+.legendItem {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.54);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  padding: 10px;
+}
+
+.legendDot {
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+}
+
+.lineChartWrap {
+  background: rgba(255, 255, 255, 0.52);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 12px;
+}
+
+.lineChart {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.chartAxis,
+.chartGridLine {
+  stroke: rgba(91, 107, 128, 0.24);
+  stroke-width: 1;
+}
+
+.manualLine,
+.automatedLine {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4;
+}
+
+.manualLine {
+  stroke: var(--gmail-red);
+}
+
+.automatedLine {
+  stroke: var(--accent);
+}
+
+.manualPoint,
+.automatedPoint {
+  stroke: rgba(255, 255, 255, 0.96);
+  stroke-width: 3;
+}
+
+.manualPoint {
+  fill: var(--gmail-red);
+}
+
+.automatedPoint {
+  fill: var(--accent);
+}
+
+.chartLabel,
+.chartValue {
+  fill: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+.chartValue {
+  fill: var(--text);
+}
+
+.chartFooter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.lineKey {
+  align-items: center;
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 700;
+  gap: 6px;
+  padding: 6px 10px;
+}
+
+.manualKey {
+  background: rgba(252, 232, 230, 0.86);
+  color: var(--gmail-red);
+}
+
+.automatedKey {
+  background: rgba(232, 240, 254, 0.92);
+  color: var(--accent);
 }
 
 @media (max-width: 860px) {
@@ -381,11 +789,26 @@ tr:last-child td {
   }
 
   .statsGrid,
+  .chartGrid,
+  .loginHero,
+  .loginRoleGrid,
   .twoCol {
+    grid-template-columns: 1fr;
+  }
+
+  .donutLayout {
     grid-template-columns: 1fr;
   }
 
   h1 {
     font-size: 28px;
+  }
+
+  .loginCopy h1 {
+    font-size: 30px;
+  }
+
+  .loginStats {
+    grid-template-columns: 1fr;
   }
 }
