@@ -1,0 +1,10 @@
+You are working on AI Ops Assistant, a SolveX AI Hackathon MVP.
+
+- Keep the project demo-ready and avoid unnecessary complexity.
+- Use GitHub Flow: feature branches, PR review, no direct push to main.
+- Keep backend and frontend independently runnable.
+- Do not hardcode secrets; use environment variables.
+- Default to mock AI behavior when no LLM API key exists.
+- Add short AI traceability comments to AI-assisted backend modules.
+- Prefer clear, modular services over clever abstractions.
+- Preserve the dashboard metric target of at least 50% workload reduction.
