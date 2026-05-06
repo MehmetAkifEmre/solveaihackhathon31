@@ -23,7 +23,7 @@ export function Actions({ id, status }: { id: number; status: WorkflowStatus }) 
       }
       router.refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "İşlem tamamlanamadı.");
+      setError(err instanceof Error ? err.message : "Islem tamamlanamadi.");
     } finally {
       setBusyAction(null);
     }

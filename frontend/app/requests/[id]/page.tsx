@@ -5,8 +5,9 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { getRequest } from "@/lib/api";
 import { Actions } from "./Actions";
 
-export default async function RequestDetailPage({ params }: { params: { id: string } }) {
-  const request = await getRequest(params.id);
+export default async function RequestDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const request = await getRequest(id);
 
   return (
     <>
@@ -15,7 +16,7 @@ export default async function RequestDetailPage({ params }: { params: { id: stri
           <p className="eyebrow">Request detail</p>
           <h1>{request.title}</h1>
           <p className="muted">
-            {request.department ?? "Unassigned"} departmanı için AI destekli inceleme çıktısı.
+            {request.department ?? "Unassigned"} departmani icin AI destekli inceleme ciktisi.
           </p>
         </div>
         <Link href="/requests" className="secondaryButton">
@@ -35,32 +36,32 @@ export default async function RequestDetailPage({ params }: { params: { id: stri
         </article>
 
         <aside className="card">
-          <h2>AI sınıflandırması</h2>
+          <h2>AI siniflandirmasi</h2>
           <p>
             <strong>Kategori:</strong> {request.category ?? "-"}
           </p>
           <p>
-            <strong>Öncelik:</strong> {request.priority ?? "-"}
+            <strong>Oncelik:</strong> {request.priority ?? "-"}
           </p>
           <p>
             <strong>Departman:</strong> {request.department ?? "-"}
           </p>
           <p>
-            <strong>Tahmini süre:</strong> {request.manual_minutes_estimate} dk manuel /{" "}
-            {request.automated_minutes_estimate} dk AI sonrası
+            <strong>Tahmini sure:</strong> {request.manual_minutes_estimate} dk manuel /{" "}
+            {request.automated_minutes_estimate} dk AI sonrasi
           </p>
         </aside>
       </section>
 
       <section className="grid twoCol" style={{ marginTop: 16 }}>
         <article className="card">
-          <h2>Çıkarılan alanlar</h2>
+          <h2>Cikarilan alanlar</h2>
           <pre className="jsonBlock">{JSON.stringify(request.extracted_fields, null, 2)}</pre>
         </article>
 
         <article className="card">
-          <h2>AI cevap taslağı</h2>
-          <p className="detailBlock">{request.draft_response ?? "Taslak üretilemedi."}</p>
+          <h2>AI cevap taslagi</h2>
+          <p className="detailBlock">{request.draft_response ?? "Taslak uretilemedi."}</p>
           <Actions id={request.id} status={request.status} />
         </article>
       </section>

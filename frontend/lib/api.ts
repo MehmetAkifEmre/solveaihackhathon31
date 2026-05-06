@@ -56,11 +56,37 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   });
 
   if (!response.ok) {
-    const error = await response.json().catch(() => ({ detail: "Beklenmeyen hata oluştu." }));
-    throw new Error(error.detail ?? "Beklenmeyen hata oluştu.");
+    const error = await response.json().catch(() => ({ detail: "Beklenmeyen hata olustu." }));
+    throw new Error(toErrorMessage(error.detail));
   }
 
   return response.json() as Promise<T>;
+}
+
+function toErrorMessage(detail: unknown): string {
+  if (typeof detail === "string") {
+    return detail;
+  }
+
+  if (Array.isArray(detail)) {
+    return detail
+      .map((item) => {
+        if (typeof item === "string") {
+          return item;
+        }
+        if (item && typeof item === "object" && "msg" in item) {
+          return String((item as { msg: unknown }).msg);
+        }
+        return JSON.stringify(item);
+      })
+      .join(" ");
+  }
+
+  if (detail && typeof detail === "object") {
+    return JSON.stringify(detail);
+  }
+
+  return "Beklenmeyen hata olustu.";
 }
 
 export function getRequests() {
